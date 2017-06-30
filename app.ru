@@ -12,9 +12,7 @@ class Web
   def call(env)
     request = Rack::Request.new(env)
     request.env["repo"] = @repo
-    app = @router.route(request)
-    response = app.call(request)
-    [response.status_code, response.headers, response.multipart_body]
+    @router.route(request).call(request)
   end
 end
 

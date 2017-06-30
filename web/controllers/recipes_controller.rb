@@ -1,17 +1,10 @@
 require "model/recipe"
-Response = Struct.new(:status_code, :headers, :multipart_body)
+require "web/views/recipes_view"
+require "kingfisher/controller"
 
-class RecipesController
-  def initialize(request)
-    @request = request
-  end
-
-  def repo
-    @request.env["repo"]
-  end
-
+class RecipesController < Kingfisher::Controller
   def index
     recipes = repo.all(Recipe)
-    Response.new(200, {}, [recipes.inspect])
+    RecipesView.new(recipes)
   end
 end
