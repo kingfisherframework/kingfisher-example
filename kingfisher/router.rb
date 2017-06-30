@@ -2,12 +2,19 @@ module Kingfisher
   NoRouteError = Class.new(StandardError)
 
   class Router
-    def route(request)
-      @route_set.match(request)
+    def call(env)
+      request = Rack::Request.new(env)
+      resp = route(request).call(env)
+      $stdout.puts resp.inspect
+      resp
     end
 
     private
     attr_reader :route_set
+
+    def route(request)
+      route_set.match(request)
+    end
 
     def route_set
       @route_set ||= RouteSet.new

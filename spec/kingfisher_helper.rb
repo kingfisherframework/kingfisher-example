@@ -1,15 +1,17 @@
 $LOAD_PATH.unshift File.expand_path("../", __dir__)
 
+require "dotenv/load"
+
 require "web"
 require "capybara/dsl"
 require "capybara/rspec"
-require "dotenv/load"
+require "web/router"
+require "config"
+require "kingfisher/app"
 
-Capybara.app = Rack::Builder.new do
-  map("/") do
-    instance_eval(File.read(File.expand_path("../middleware.rb", __dir__)))
-    run Web.new
-  end
-end.to_app
+router = Router.new
+config = Config.new
+
+Capybara.app = Kingfisher::App.new(router, config)
 
 Capybara.save_path = "tmp/capybara"
