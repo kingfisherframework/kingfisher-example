@@ -1,16 +1,11 @@
-require "web/controllers/recipes_controller"
+require "web/controllers/home_controller"
+require "web/controllers/tweets_controller"
 require "kingfisher/route_set"
+require "kingfisher/router"
 
-class Router
-  NoRouteError = Class.new(StandardError)
-
+class Router < Kingfisher::Router
   def initialize
-    @route_set = Kingfisher::RouteSet.new
-    @route_set.get("/", RecipesController, :index)
-    @route_set.get("/foo", RecipesController, :index)
-  end
-
-  def route(request)
-    @route_set.match(request)
+    get("/", HomeController, :show)
+    post("/tweet", TweetsController, :create)
   end
 end
