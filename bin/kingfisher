@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+aliases = { "s"  => "server" }
+command = ARGV.shift
+command = aliases[command] || command
+
+if "server" == command
+  require_relative "../config/boot"
+end
