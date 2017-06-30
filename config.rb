@@ -8,8 +8,5 @@ class Config
     @backend = Kingfisher::SqlLite3Backend.new("data/repo.sql")
     @repo = Kingfisher::Repo
     @request = Rack::Request
-    @middleware = [
-      [Rack::Static, root: "web/public"]
-    ]
   end
 end
