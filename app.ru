@@ -5,6 +5,6 @@ require "pry"
 require "services/authentication"
 require "web"
 
-load "middleware"
+instance_eval(File.read(File.expand_path("middleware.rb", __dir__)))
 
 run Web.new
