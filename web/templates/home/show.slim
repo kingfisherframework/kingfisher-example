@@ -3,4 +3,8 @@ p Sign up to start tweeting
 
 a href="/sign_up" Sign up
 
+form action="/sign_out" method="post"
+  input type="hidden" name="_method" value="delete"
+  input type="submit" value="sign out"
+
 = current_user.inspect

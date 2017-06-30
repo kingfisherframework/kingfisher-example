@@ -20,5 +20,9 @@ module Kingfisher
     def post(url, controller, action)
       route_set.post(url, controller, action)
     end
+
+    def delete(url, controller, action)
+      route_set.delete(url, controller, action)
+    end
   end
 end
