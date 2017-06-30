@@ -5,6 +5,6 @@ require "kingfisher/controller"
 class RecipesController < Kingfisher::Controller
   def index
     recipes = repo.all(Recipe)
-    RecipesView.new(recipes)
+    RecipesView.new(recipes: recipes)
   end
 end
