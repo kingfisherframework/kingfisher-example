@@ -7,10 +7,15 @@ require "kingfisher/router"
 
 class Router < Kingfisher::Router
   def initialize
-    get("/", HomeController, :show)
-    get("/sign_up", UsersController, :new)
-    post("/sign_up", UsersController, :create)
-    post("/tweet", TweetsController, :create)
-    delete("/sign_out", SessionsController, :delete)
+    get "/", HomeController, :show
+
+    get "/sign_up", UsersController, :new
+    post "/sign_up", UsersController, :create
+
+    post "/tweet", TweetsController, :create
+
+    get "/sign_in", SessionsController, :new
+    post "/sign_in", SessionsController, :create
+    delete "/sign_out", SessionsController, :delete
   end
 end

@@ -1,3 +1,4 @@
+require "bcrypt"
 require "models/user"
 
 class SignUp
@@ -7,9 +8,20 @@ class SignUp
   end
 
   def run
-    repo.create(User, params)
+    repo.create(User, user_params)
   end
 
   private
   attr_reader :params, :repo
+
+  def user_params
+    {
+      email: params["email"],
+      password_digest: password_digest
+    }
+  end
+
+  def password_digest
+    BCrypt::Password.create(params["password"])
+  end
 end

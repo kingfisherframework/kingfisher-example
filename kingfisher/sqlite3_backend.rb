@@ -17,7 +17,11 @@ module Kingfisher
     end
 
     def find(model, id)
-      db[table_name(model)][id: id]
+      find_by(model, id: id)
+    end
+
+    def find_by(model, attributes)
+      db[table_name(model)][**attributes]
     end
 
     private

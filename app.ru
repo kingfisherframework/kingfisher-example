@@ -36,17 +36,17 @@ use Rack::MethodOverride
 
 class BcryptPasswordStrategy < ::Warden::Strategies::Base
   def valid?
-    params[:id] && params[:password]
+    params["id"] && params["password"]
   end
 
   def authenticate!
-    Authentication.new(user, params[:password]).run
+    Authentication.new(user, params["password"]).run
   end
 
   private
 
   def user
-    env["repo"].find_by(User, id: params[:id])
+    env["repo"].find_by(User, id: params["id"])
   end
 end
 

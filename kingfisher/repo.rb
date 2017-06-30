@@ -16,6 +16,10 @@ module Kingfisher
       backend.create(model, params)
     end
 
+    def find_by(model, attributes)
+      backend.find_by(model, attributes)
+    end
+
     private
     attr_reader :backend
 
