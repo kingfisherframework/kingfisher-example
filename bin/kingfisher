@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+aliases = { "s" => "server" }
+command = ARGV.shift
+command = aliases.fetch(command) { command }
+
+case command
+when "server" then require_relative "../config/boot"
+else
+  raise "Unsupported command: #{command}, available commands: #{aliases.keys.join(", ")}"
+end
