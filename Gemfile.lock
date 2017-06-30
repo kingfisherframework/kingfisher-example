@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    bcrypt (3.1.11)
     coderay (1.1.1)
     method_source (0.8.2)
     pry (0.10.4)
@@ -24,6 +25,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bcrypt
   pry
   puma
   rack
