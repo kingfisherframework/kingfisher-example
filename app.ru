@@ -1,19 +1,23 @@
 $LOAD_PATH.unshift(".")
+
 require "web/router"
-require "data/repo"
-require "data/sqlite3_backend"
+require "kingfisher/repo"
+require "kingfisher/sqlite3_backend"
 
 class Web
   def initialize
     @router = Router.new
-    @repo = Repo.new(SqlLite3Backend.new("data/repo.sql"))
+    @repo = Kingfisher::Repo.new(Kingfisher::SqlLite3Backend.new("data/repo.sql"))
   end
 
   def call(env)
     request = Rack::Request.new(env)
-    request.env["repo"] = @repo
-    @router.route(request).call(request)
+    request.env["repo"] = repo
+    router.route(request).call(request)
   end
+
+  private
+  attr_reader :router, :repo
 end
 
 use Rack::Static, root: "web/public"
