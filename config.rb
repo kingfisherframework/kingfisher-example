@@ -1,5 +1,5 @@
-require "kingfisher/repo"
-require "kingfisher/sqlite3_backend"
+require_relative "kingfisher/repo"
+require_relative "kingfisher/sqlite3_backend"
 
 class Config
   attr_reader :backend, :repo, :request, :middleware
