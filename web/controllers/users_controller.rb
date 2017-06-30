@@ -1,3 +1,8 @@
+require "web/views/sign_up_view"
+require "web/forms/sign_up_form"
+require "services/sign_up"
+require "services/sign_in"
+
 class UsersController < Kingfisher::Controller
   def new
     SignUpView.new
@@ -7,6 +12,6 @@ class UsersController < Kingfisher::Controller
     form = SignUpForm.new(params)
     user = SignUp.new(form.params, request).run
     SignIn.new(user, request).run
-    redirect_to "/"
+    redirect to: "/"
   end
 end

@@ -6,7 +6,7 @@ module Kingfisher
 
     def match(request)
       mroute = @routes.find { |route| route.match?(request) }
-      Operation.either(->(_){ raise NoRouteError }, mroute).result
+      Operation.either(->(_){ raise NoRouteError, "#{request.request_method} #{request.path}" }, mroute).result
     end
 
     def get(url, controller, method)
@@ -27,7 +27,7 @@ module Kingfisher
     end
 
     def match?(request)
-      request.path == @url
+      request.request_method.downcase.to_sym == @verb && request.path == @url
     end
 
     def call(request)

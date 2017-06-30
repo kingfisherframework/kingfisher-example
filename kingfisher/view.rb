@@ -1,11 +1,13 @@
+require "slim"
+
 module Kingfisher
   class View
     def status_code
-      @status_code ||= 200
+      @_status_code ||= 200
     end
 
     def headers
-      @headers ||= { "Content-Type" => "text/html" }
+      @_headers ||= { "Content-Type" => "text/html" }
     end
 
     def body
@@ -13,7 +15,12 @@ module Kingfisher
     end
 
     def render
-      "Hello WOrld"
+      Slim::Template.
+        new("web/templates/#{template}.slim").
+        render(self)
     end
+
+    private
+    attr_reader :template
   end
 end

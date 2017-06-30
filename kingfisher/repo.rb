@@ -4,12 +4,20 @@ module Kingfisher
       @backend = backend
     end
 
-    def all(model, options = {})
-      table_name = options.fetch(:table_name) { model.name.downcase }
-      backend.all(table_name)
+    def all(model)
+      backend.all(model)
+    end
+
+    def find(model, id)
+      backend.find(model, id)
+    end
+
+    def create(model, params)
+      backend.create(model, params)
     end
 
     private
     attr_reader :backend
+
   end
 end

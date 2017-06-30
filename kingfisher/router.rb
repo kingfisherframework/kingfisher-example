@@ -18,7 +18,7 @@ module Kingfisher
     end
 
     def post(url, controller, action)
-      route_set.get(url, controller, action)
+      route_set.post(url, controller, action)
     end
   end
 end

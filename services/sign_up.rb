@@ -1,3 +1,5 @@
+require "models/user"
+
 class SignUp
   def initialize(params, request)
     @params = params

@@ -1,14 +1,8 @@
-require "model/recipe"
-require "web/views/recipes_view"
+require "web/views/home_view"
 require "kingfisher/controller"
 
 class HomeController < Kingfisher::Controller
-  # params
-  # cookies
-  # session
-  # request
-
   def show
-    HomeView.new
+    HomeView.new(request)
   end
 end
