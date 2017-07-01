@@ -5,7 +5,7 @@ require "services/sign_in"
 
 class UsersController < Kingfisher::Controller
   def new
-    SignUpView.new
+    view SignUpView
   end
 
   def create

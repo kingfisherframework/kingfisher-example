@@ -6,7 +6,7 @@ require "web/views/sign_in_view"
 
 class SessionsController < Kingfisher::Controller
   def new
-    SignInView.new
+    view SignInView
   end
 
   def create

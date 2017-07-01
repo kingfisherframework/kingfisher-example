@@ -1,7 +1,4 @@
-require "kingfisher/view"
+require "web/views/application_view"
 
-class SignInView < Kingfisher::View
-  def initialize
-    @template = "sign_in/new"
-  end
+class SignInView < ApplicationView
 end

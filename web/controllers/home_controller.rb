@@ -3,6 +3,6 @@ require "kingfisher/controller"
 
 class HomeController < Kingfisher::Controller
   def show
-    HomeView.new(request)
+    view HomeView
   end
 end

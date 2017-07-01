@@ -40,6 +40,10 @@ module Kingfisher
     private
     attr_reader :request
 
+    def view(view_class, locals: {})
+      view_class.new(request, locals: locals)
+    end
+
     def repo
       request.env.fetch("repo") { NullRepo.new }
     end

@@ -2,6 +2,11 @@ require "slim"
 
 module Kingfisher
   class View
+    def initialize(request, locals: {})
+      @request = request
+      @locals = locals
+    end
+
     def status_code
       @_status_code ||= 200
     end
@@ -21,6 +26,10 @@ module Kingfisher
     end
 
     private
-    attr_reader :template
+    attr_reader :locals, :request
+
+    def template
+      self.class.name.gsub(/View$/, "").gsub(/([a-z])([A-Z])/, '\1_\2').downcase
+    end
   end
 end
