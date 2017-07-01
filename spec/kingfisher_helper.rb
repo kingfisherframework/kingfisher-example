@@ -1,10 +1,9 @@
 $LOAD_PATH.unshift File.expand_path("../", __dir__)
 
-require "dotenv/load"
-
-require "web"
 require "capybara/dsl"
 require "capybara/rspec"
+
+require "dotenv/load"
 require "web/router"
 require "config"
 require "kingfisher/app"
