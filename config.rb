@@ -29,7 +29,7 @@ class Config
     @middlewares = Kingfisher::MiddlewareStack.new
 
     middlewares.use Rack::Static, root: "web/public"
-    middlewares.use Rack::Session::Cookie, secret: "82d58d3dfb91238b495a311eb8539edf5064784f1d58994679db8363ec241c745bef0b446bfe44d66cbf91a2f4e497d8f6b1ef1656e3f405b0d263a9617ac75e"
+    middlewares.use Rack::Session::Cookie, secret: ENV.fetch("SECRET_KEY_BASE")
     middlewares.use Rack::MethodOverride
     middlewares.use Warden::Manager do |manager|
       manager.failure_app = ->(env) { [400, { "Content-Type" => "plain/text" }, ["Auth Failure"]] }
