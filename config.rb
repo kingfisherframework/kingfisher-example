@@ -1,6 +1,7 @@
 require "warden"
 require "services/authentication"
 require "kingfisher/repo"
+require "kingfisher/database_backends/postgresql"
 require "kingfisher/database_backends/sqlite3"
 require "kingfisher/middleware"
 require "kingfisher/middlewares/file_logger"
@@ -24,7 +25,7 @@ class Config
   end
 
   def initialize
-    @backend = Kingfisher::DatabaseBackends::SqlLite3.new
+    @backend = Kingfisher::DatabaseBackends::PostgreSQL.new
     @repo = Kingfisher::Repo
     @middlewares = Kingfisher::MiddlewareStack.new
 
