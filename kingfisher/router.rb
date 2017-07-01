@@ -10,14 +10,13 @@ module Kingfisher
     end
 
     private
-    attr_reader :route_set
+
+    def route_set
+      @_route_set ||= RouteSet.new
+    end
 
     def route(request)
       route_set.match(request)
-    end
-
-    def route_set
-      @route_set ||= RouteSet.new
     end
 
     def get(url, controller, action)
