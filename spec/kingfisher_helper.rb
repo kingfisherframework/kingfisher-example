@@ -3,6 +3,7 @@ $LOAD_PATH.unshift File.expand_path("../", __dir__)
 require "web"
 require "capybara/dsl"
 require "capybara/rspec"
+require "dotenv/load"
 
 Capybara.app = Rack::Builder.new do
   map("/") do
