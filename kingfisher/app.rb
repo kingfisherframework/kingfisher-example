@@ -5,7 +5,7 @@ module Kingfisher
       @config = config
       @builder = Rack::Builder.new
 
-      config.middleware.each do |middleware|
+      config.middlewares.each do |middleware|
         builder.use middleware.klass, *middleware.args, &middleware.block
       end
 
