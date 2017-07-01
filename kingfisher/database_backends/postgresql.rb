@@ -8,16 +8,21 @@ module Kingfisher
       end
 
       def all(model)
+        db[table_name(model)].all
       end
 
       def create(model, params)
-        raise "Implement me"
+        id = db[table_name(model)].insert(params)
+        attributes = symbolize_keys(params).merge(id: id)
+        model.new(attributes)
       end
 
       def find(model, id)
+        find_by(model, id: id)
       end
 
       def find_by(model, attributes)
+        db[table_name(model)][**attributes]
       end
 
       private

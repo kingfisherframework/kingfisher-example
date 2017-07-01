@@ -8,7 +8,7 @@ module Kingfisher
       end
 
       def all(model)
-        db[table_name(model)].to_a
+        db[table_name(model)].all
       end
 
       def create(model, params)
