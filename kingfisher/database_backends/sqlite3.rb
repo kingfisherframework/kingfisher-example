@@ -3,7 +3,8 @@ require "sequel"
 module Kingfisher
   module DatabaseBackends
     class SqlLite3
-      def initialize
+      def initialize(database_url:)
+        @database_url = database_url
         @db = open_db
       end
 
@@ -26,11 +27,7 @@ module Kingfisher
       end
 
       private
-      attr_reader :db
-
-      def database_url
-        Kingfisher.configuration.database_url
-      end
+      attr_reader :db, :database_url
 
       def open_db
         Sequel.connect database_url
