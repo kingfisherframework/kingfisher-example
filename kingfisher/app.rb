@@ -5,12 +5,8 @@ module Kingfisher
       @config = config
       @builder = Rack::Builder.new
 
-      config.middleware.each do |(middleware, args)|
-        if args.is_a?(Proc)
-          builder.use middleware, &args
-        else
-          builder.use middleware, *args
-        end
+      config.middleware.each do |middleware|
+        builder.use middleware.klass, *middleware.args, &middleware.block
       end
 
       builder.run(router)
