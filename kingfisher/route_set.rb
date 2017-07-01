@@ -34,7 +34,8 @@ module Kingfisher
       request.request_method.downcase.to_sym == verb && request.path == url
     end
 
-    def call(request)
+    def call(env)
+      request = Rack::Request.new(env)
       view = app.new(request).public_send(action)
       [view.status_code, view.headers, view.body]
     end

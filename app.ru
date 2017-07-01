@@ -1,11 +1,12 @@
 $LOAD_PATH.unshift(".")
 
-require "warden"
 require "pry"
-require "services/authentication"
-require "web"
 require "dotenv/load"
+require "web/router"
+require "config"
+require "kingfisher/app"
 
-instance_eval(File.read(File.expand_path("middleware.rb", __dir__)))
+router = Router.new
+config = Config.new
 
-run Web.new
+run Kingfisher::App.new(router, config)
