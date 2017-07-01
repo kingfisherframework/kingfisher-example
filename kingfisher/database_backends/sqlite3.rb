@@ -28,8 +28,12 @@ module Kingfisher
       private
       attr_reader :db
 
+      def database_url
+        Kingfisher.configuration.database_url
+      end
+
       def open_db
-        Sequel.connect ENV.fetch("DATABASE_URL")
+        Sequel.connect database_url
       end
 
       def table_name(model)

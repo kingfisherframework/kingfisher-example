@@ -1,5 +1,6 @@
 require "warden"
 require "services/authentication"
+require "kingfisher/kingfisher"
 require "kingfisher/repo"
 require "kingfisher/database_backends/postgresql"
 require "kingfisher/database_backends/sqlite3"
@@ -41,4 +42,8 @@ class Config
     Warden::Manager.serialize_into_session { |user| user[:id] }
     Warden::Manager.serialize_from_session { |id| env["repo"].find(User, id) }
   end
+end
+
+Kingfisher.configure do |config|
+  config.database_url = ENV["DATABASE_URL"]
 end
