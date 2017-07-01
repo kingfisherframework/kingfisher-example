@@ -9,6 +9,6 @@ RSpec.describe SignUp do
   end
 
   def repo
-    Kingfisher::Repo.new(Kingfisher::DatabaseBackends::SqlLite3.new)
+    Kingfisher::Repo.new(Config.new.backend)
   end
 end
