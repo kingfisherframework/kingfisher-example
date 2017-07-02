@@ -1,7 +1,9 @@
+require "rack"
+
 module Twitter
   class Application
     def self.start
-      system("puma app.ru")
+      Rack::Server.new.start
     end
   end
 end
