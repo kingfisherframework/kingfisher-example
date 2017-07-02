@@ -4,9 +4,7 @@ module Kingfisher
   class Router
     def call(env)
       request = Rack::Request.new(env)
-      resp = route(request).call(env)
-      $stdout.puts resp.inspect
-      resp
+      route(request).call(env)
     end
 
     private
