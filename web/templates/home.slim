@@ -8,4 +8,5 @@ form action="/sign_out" method="post"
   input type="hidden" name="_method" value="delete"
   input type="submit" value="sign out"
 
-= current_user.inspect
+- if signed_in?
+  | Welcome #{current_user[:email]}

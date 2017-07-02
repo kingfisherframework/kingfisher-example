@@ -21,7 +21,7 @@ module Kingfisher
     end
 
     def find_by(model, attributes)
-      db[table_name(model)][**attributes]
+      model.new(db[table_name(model)][**attributes])
     end
 
     private
