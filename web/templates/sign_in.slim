@@ -1,5 +1,6 @@
 h1 Sign in
 form action="/sign_in" method="post"
+  == csrf.form_input
   input type="email" placeholder="Email" name="email"
   input type="password" placeholder="Password" name="password"
   input type="submit" value="Sign in"

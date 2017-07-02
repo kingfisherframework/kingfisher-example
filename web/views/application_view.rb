@@ -1,4 +1,5 @@
 require "kingfisher/view"
+require "kingfisher/csrf"
 
 class ApplicationView < Kingfisher::View
   def current_user
@@ -7,5 +8,9 @@ class ApplicationView < Kingfisher::View
 
   def signed_in?
     !!current_user
+  end
+
+  def csrf
+    @_csrf ||= Kingfisher::CSRF.new(request)
   end
 end
