@@ -1,3 +1,5 @@
+require "Kingfisher_helper"
+
 RSpec.describe SignUp do
   it "creates an user" do
     user_params = { "email" => "matt@example.com", "password" => "password" }
