@@ -7,13 +7,11 @@ require "dotenv"
 Dotenv.load(".env.test")
 
 require "web/router"
-require "config"
 require "kingfisher/app"
 
 router = Router.new
-config = Config.new
 
-Capybara.app = Kingfisher::App.new(router, config)
+Capybara.app = Kingfisher::App.new(router)
 
 Capybara.save_path = "tmp/capybara"
 
