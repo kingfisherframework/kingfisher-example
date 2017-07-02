@@ -29,7 +29,7 @@ class Config
     @repo = Kingfisher::Repo
     @middlewares = Kingfisher::MiddlewareStack.new
 
-    middlewares.use Kingfisher::Middlewares::FileLogger, file: "log/development.log"
+    middlewares.use Kingfisher::Middlewares::FileLogger, file: "log/#{ENV.fetch("KINGFISHER_ENV")}.log"
     middlewares.use Rack::Static, root: "web/public"
     middlewares.use Rack::Session::Cookie, secret: ENV.fetch("SECRET_KEY_BASE")
     middlewares.use Rack::MethodOverride
