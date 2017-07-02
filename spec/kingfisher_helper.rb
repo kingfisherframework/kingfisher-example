@@ -16,3 +16,8 @@ config = Config.new
 Capybara.app = Kingfisher::App.new(router, config)
 
 Capybara.save_path = "tmp/capybara"
+
+Dir["spec/support/**/*.rb"].each { |f| require f }
+RSpec.configure do |config|
+  config.include RepoHelper
+end

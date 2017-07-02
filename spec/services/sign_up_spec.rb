@@ -9,8 +9,4 @@ RSpec.describe SignUp do
 
     expect(repo.all(User).last).to include(email: "matt@example.com")
   end
-
-  def repo
-    Kingfisher::Repo.new(Config.new.backend)
-  end
 end

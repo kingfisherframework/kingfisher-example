@@ -1,10 +1,6 @@
 require "kingfisher_helper"
 
 RSpec.feature "User authentication" do
-  def repo
-    Kingfisher::Repo.new(Config.new.backend)
-  end
-
   def create_user(attributes)
     repo.create(User, attributes)
   end
