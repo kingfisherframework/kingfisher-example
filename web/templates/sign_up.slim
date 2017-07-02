@@ -1,4 +1,5 @@
 form action="/sign_up" method="post"
+  == csrf.form_input
   input type="email" placeholder="Email" name="email"
   input type="password" placeholder="Password" name="password"
   input type="submit" value="Sign up"
