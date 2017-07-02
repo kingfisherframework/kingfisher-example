@@ -3,6 +3,7 @@ require "services/authentication"
 require "kingfisher/repo"
 require "kingfisher/sqlite3_backend"
 require "kingfisher/middleware"
+require "kingfisher/middlewares/file_logger"
 
 class Config
   attr_reader :backend, :repo, :request, :middlewares
@@ -25,9 +26,9 @@ class Config
   def initialize
     @backend = Kingfisher::SqlLite3Backend.new("data/repo.sql")
     @repo = Kingfisher::Repo
-    @request = Rack::Request
     @middlewares = Kingfisher::MiddlewareStack.new
 
+    middlewares.use Kingfisher::Middlewares::FileLogger, file: "log/development.log"
     middlewares.use Rack::Static, root: "web/public"
     middlewares.use Rack::Session::Cookie, secret: ENV.fetch("SECRET_KEY_BASE")
     middlewares.use Rack::MethodOverride

@@ -1,2 +1,3 @@
 data/repo.sql
 spec/examples.txt
+log/*.log
