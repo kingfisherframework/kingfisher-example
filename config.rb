@@ -29,7 +29,7 @@ class Config
     @repo = Kingfisher::Repo
     @middlewares = Kingfisher::MiddlewareStack.new
 
-    middlewares.use Kingfisher::Middlewares::FileLogger, file: "log/development.log"
+    middlewares.use Kingfisher::Middlewares::FileLogger, file: "log/#{kingfisher_env}.log"
     middlewares.use Rack::Static, root: "web/public"
     middlewares.use Rack::Session::Cookie, secret: ENV.fetch("SECRET_KEY_BASE")
     middlewares.use Rack::MethodOverride
@@ -40,5 +40,9 @@ class Config
     Warden::Strategies.add(:password_strategy, BcryptPasswordStrategy)
     Warden::Manager.serialize_into_session { |user| user[:id] }
     Warden::Manager.serialize_from_session { |id| env["repo"].find(User, id) }
+  end
+
+  def kingfisher_env
+    ENV.fetch("KINGFISHER_ENV") { "development" }
   end
 end

@@ -1,6 +1,9 @@
 h1 Welcome to Twitter
 p Sign up to start tweeting
 
+head
+  == csrf.meta_tag
+
 a href="/sign_up" Sign up
 a href="/sign_in" Sign in
 
@@ -8,5 +11,6 @@ a href="/sign_in" Sign in
   | Welcome #{current_user[:email]}
 
   form action="/sign_out" method="post"
+    == csrf.form_input
     input type="hidden" name="_method" value="delete"
     input type="submit" value="Sign out"
