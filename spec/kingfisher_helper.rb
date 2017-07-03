@@ -16,3 +16,17 @@ config = Config.new
 Capybara.app = Kingfisher::App.new(router, config)
 
 Capybara.save_path = "tmp/capybara"
+
+require "database_cleaner"
+
+RSpec.configure do |config|
+  config.before(:suite) do
+    DatabaseCleaner[:sequel].clean_with(:deletion)
+  end
+
+  config.around(:each) do |example|
+    DatabaseCleaner[:sequel].cleaning do
+      example.run
+    end
+  end
+end
