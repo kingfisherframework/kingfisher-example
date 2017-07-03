@@ -1,3 +1,5 @@
+require "securerandom"
+
 module Kingfisher
   class CSRF
     def initialize(request)
