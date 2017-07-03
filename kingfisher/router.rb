@@ -4,12 +4,7 @@ module Kingfisher
   class Router
     def call(env)
       request = Rack::Request.new(env)
-
-      if csrf(request).unsafe?
-        forbidden
-      else
-        route(request).call(env)
-      end
+      route(request).call(env)
     end
 
     private
@@ -32,14 +27,6 @@ module Kingfisher
 
     def delete(url, controller, action)
       route_set.delete(url, controller, action)
-    end
-
-    def forbidden
-      [403, {"Content-Type" => "text/plain"}, ["Forbidden"]]
-    end
-
-    def csrf(request)
-      @_csrf ||= CSRF.new(request)
     end
   end
 end
