@@ -5,9 +5,11 @@ require "kingfisher/database_backends/postgresql"
 require "kingfisher/database_backends/sqlite3"
 require "kingfisher/middleware"
 require "kingfisher/middlewares/file_logger"
+require "kingfisher/middlewares/csrf"
+require "web/controllers/forbidden_controller"
 
 class Config
-  attr_reader :backend, :repo, :request, :middlewares
+  attr_reader :backend, :repo, :middlewares
   class BcryptPasswordStrategy < ::Warden::Strategies::Base
     def valid?
       params["id"] && params["password"]
@@ -32,6 +34,7 @@ class Config
     middlewares.use Kingfisher::Middlewares::FileLogger, file: "log/#{kingfisher_env}.log"
     middlewares.use Rack::Static, root: "web/public"
     middlewares.use Rack::Session::Cookie, secret: ENV.fetch("SECRET_KEY_BASE")
+    middlewares.use Kingfisher::Middlewares::CSRF, controller: ForbiddenController, action: :show
     middlewares.use Rack::MethodOverride
     middlewares.use Warden::Manager do |manager|
       manager.failure_app = ->(env) { [400, { "Content-Type" => "plain/text" }, ["Auth Failure"]] }
