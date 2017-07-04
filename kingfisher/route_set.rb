@@ -35,9 +35,8 @@ module Kingfisher
     end
 
     def call(env)
-      request = Rack::Request.new(env)
-      view = app.new(request).public_send(action)
-      [view.status_code, view.headers, view.body]
+      response = app.new(env).public_send(action)
+      [response.status_code, response.headers, response.body]
     end
 
     private

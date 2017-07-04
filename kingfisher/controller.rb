@@ -33,12 +33,16 @@ module Kingfisher
   end
 
   class Controller
-    def initialize(request)
-      @request = request
+    def initialize(env)
+      @env = env
     end
 
     private
-    attr_reader :request
+    attr_reader :env
+
+    def request
+      @_request ||= Rack::Request.new(env)
+    end
 
     def view(view_class, locals: {})
       view_class.new(request, locals: locals)
