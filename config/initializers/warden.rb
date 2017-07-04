@@ -1,3 +1,4 @@
+require "services/authentication"
 require "warden"
 
 class BCryptPasswordStrategy < ::Warden::Strategies::Base

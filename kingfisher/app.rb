@@ -34,7 +34,7 @@ module Kingfisher
 
     def run_initializers
       Dir.glob("#{root}/config/initializers/*.rb").each do |file|
-        load file
+        require file
       end
     end
   end
