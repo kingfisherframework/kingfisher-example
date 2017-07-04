@@ -1,9 +1,8 @@
-require "config/#{ENV.fetch("KINGFISHER_ENV")}.rb"
-
 module Kingfisher
   class App
-    def initialize(router)
+    def initialize(router, config)
       @router = router
+      @config = config
       @builder = Rack::Builder.new
 
       config.middlewares.each do |middleware|
@@ -11,6 +10,8 @@ module Kingfisher
       end
 
       builder.run(router)
+
+      run_initializers
     end
 
     def call(env)
@@ -21,14 +22,20 @@ module Kingfisher
     end
 
     private
-    attr_reader :builder, :router
+    attr_reader :builder, :router, :config
 
-    def config
-      @_config ||= Config.new
+    def root
+      config.root
     end
 
     def repo
       @_repo ||= config.repo.new(config.backend)
+    end
+
+    def run_initializers
+      Dir.glob("#{root}/config/initializers/*.rb").each do |file|
+        load file
+      end
     end
   end
 end

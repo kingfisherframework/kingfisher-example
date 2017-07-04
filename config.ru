@@ -4,7 +4,9 @@ require "pry"
 require "dotenv/load"
 require "web/router"
 require "kingfisher/app"
+require "config/#{ENV.fetch("KINGFISHER_ENV", "development")}"
 
+config = Config.new
 router = Router.new
 
-run Kingfisher::App.new(router)
+run Kingfisher::App.new(router, config)

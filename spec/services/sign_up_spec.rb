@@ -1,4 +1,4 @@
-require "Kingfisher_helper"
+require "kingfisher_helper"
 
 RSpec.describe SignUp do
   it "creates an user" do

@@ -19,38 +19,27 @@ require "kingfisher/middleware"
 require "kingfisher/middlewares/file_logger"
 
 class ApplicationConfig
-  attr_reader :backend, :repo, :request, :middlewares
-  class BcryptPasswordStrategy < ::Warden::Strategies::Base
-    def valid?
-      params["id"] && params["password"]
-    end
-
-    def authenticate!
-      Authentication.new(user, params["password"]).run
-    end
-
-    private
-
-    def user
-      env["repo"].find_by(User, id: params["id"])
-    end
+  attr_reader :backend, :repo, :middlewares, :root
+  def initialize
+    @root = File.expand_path("..", __dir__)
+    setup_database
+    setup_middleware
   end
 
-  def initialize
+  def setup_database
     @backend = Kingfisher::DatabaseBackends::PostgreSQL.new(database_url: ENV.fetch("DATABASE_URL"))
     @repo = Kingfisher::Repo
+  end
+
+  def setup_middleware
     @middlewares = Kingfisher::MiddlewareStack.new
 
-    middlewares.use Kingfisher::Middlewares::FileLogger, file: "log/development.log"
     middlewares.use Rack::Static, root: "web/public"
     middlewares.use Rack::Session::Cookie, secret: ENV.fetch("SECRET_KEY_BASE")
     middlewares.use Rack::MethodOverride
     middlewares.use Warden::Manager do |manager|
       manager.failure_app = ->(env) { [400, { "Content-Type" => "plain/text" }, ["Auth Failure"]] }
     end
-
-    Warden::Strategies.add(:password_strategy, BcryptPasswordStrategy)
-    Warden::Manager.serialize_into_session { |user| user[:id] }
-    Warden::Manager.serialize_from_session { |id| env["repo"].find(User, id) }
+    setup_environment_middleware
   end
 end
