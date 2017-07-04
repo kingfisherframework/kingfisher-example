@@ -1,3 +1,5 @@
+require "securerandom"
+
 module Kingfisher
   class CSRF
     def initialize(request)
@@ -16,7 +18,7 @@ module Kingfisher
       return true if request.get? || request.head?
       return true if request[:csrf_token] == token
 
-      request.env["HTTP_X_CSRF_TOKEN"] == token
+      request.env["HTTP_X_CSRF_TOKEN"] == token || request.env["X_CSRF_TOKEN"] == token
     end
 
     def unsafe?

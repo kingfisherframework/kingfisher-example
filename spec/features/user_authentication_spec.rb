@@ -25,7 +25,8 @@ RSpec.feature "User authentication" do
   end
 
   scenario "existing user signs in" do
-    user = create_user(email: "me@example.com", password_digest: "password")
+    password_digest = BCrypt::Password.create("password")
+    user = create_user(email: "me@example.com", password_digest: password_digest)
 
     sign_in("me@example.com", "password")
 
@@ -33,7 +34,8 @@ RSpec.feature "User authentication" do
   end
 
   scenario "existing user signs out" do
-    user = create_user(email: "me@example.com", password_digest: "password")
+    password_digest = BCrypt::Password.create("password")
+    user = create_user(email: "me@example.com", password_digest: password_digest)
     sign_in("me@example.com", "password")
 
     visit "/"
