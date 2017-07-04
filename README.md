@@ -14,7 +14,7 @@ create user table:
 $ psql -d twitter_dev
 
 twitter_dev=# CREATE TABLE "user" (
-  id bigint primary key,
+  id bigserial primary key,
   email varchar(255) not null,
   password_digest varchar(255) not null
 );
@@ -36,7 +36,7 @@ $ createdb twitter_test
 $ psql -d twitter_test
 
 twitter_test=# CREATE TABLE "user" (
-  id bigint primary key,
+  id bigserial primary key,
   email varchar(255) not null,
   password_digest varchar(255) not null
 );
