@@ -1,5 +1,6 @@
 source "https://rubygems.org"
 
+gem "kingfisher"
 gem "sequel"
 gem "puma"
 gem "rack"
