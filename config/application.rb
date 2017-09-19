@@ -27,7 +27,7 @@ class ApplicationConfig
   end
 
   def setup_database
-    @backend = Kingfisher::DatabaseBackends::PostgreSQL.new(database_url: ENV.fetch("DATABASE_URL"))
+    @backend = Kingfisher::DatabaseBackends::PostgreSQL.new(database_url: database_url)
     @repo = Kingfisher::Repo
   end
 

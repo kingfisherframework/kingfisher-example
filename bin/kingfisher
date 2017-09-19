@@ -1,11 +1,33 @@
 #!/usr/bin/env ruby
+require "pry"
+require_relative "../config/#{ENV.fetch("KINGFISHER_ENV", "development")}"
 
 aliases = { "s" => "server" }
 command = ARGV.shift
 command = aliases.fetch(command) { command }
+config = Config.new
+
+class StdoutReporter
+  def report(message)
+    $stdout.puts message
+  end
+end
 
 case command
 when "server" then require_relative "../config/boot"
+when "createdb"
+  check = config.backend.ensure_exists
+  puts check.result
+when "dropdb"
+  check = config.backend.drop
+  puts check.result
+when "migrate"
+  require "kingfisher/migrator"
+  Kingfisher::Migrator.new(config).run(reporter: StdoutReporter.new)
+when "generate"
+  require "kingfisher/generators"
+  args = ARGV
+  Kingfisher::Generators::INTERNAL[args[0]].new(args[1..-1]).run
 else
   raise "Unsupported command: #{command}, available commands: #{aliases.keys.join(", ")}"
 end
