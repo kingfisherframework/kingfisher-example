@@ -14,3 +14,11 @@ a href="/sign_in" Sign in
     == csrf.form_input
     input type="hidden" name="_method" value="delete"
     input type="submit" value="Sign out"
+
+  form action="/tweet" method="post"
+    == csrf.form_input
+    input type="text" name="tweet[body]"
+    input type="submit" value="Tweet"
+
+- tweets.each do |tweet|
+  div= tweet[:body]

@@ -1,5 +1,0 @@
-CREATE TABLE "user" (
-  id BIGSERIAL PRIMARY KEY,
-  email VARCHAR(255) NOT NULL,
-  password_digest VARCHAR(255) NOT NULL
-)

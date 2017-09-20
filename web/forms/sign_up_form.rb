@@ -1,12 +1,21 @@
+require "bcrypt"
+
 class SignUpForm
-  def initialize(params)
-    @_params = params
+  def initialize(request)
+    @request = request
   end
 
   def params
-    _params
+    {
+      email: request.params["email"],
+      password_digest: password_digest
+    }
   end
 
   private
-  attr_reader :_params
+  attr_reader :request
+
+  def password_digest
+    BCrypt::Password.create(request.params["password"])
+  end
 end

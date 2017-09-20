@@ -26,6 +26,10 @@ class ApplicationConfig
     setup_middleware
   end
 
+  def server
+    ServerProxy.new
+  end
+
   def setup_database
     @backend = Kingfisher::DatabaseBackends::PostgreSQL.new(database_url: database_url)
     @repo = Kingfisher::Repo
@@ -41,5 +45,11 @@ class ApplicationConfig
       manager.failure_app = ->(env) { [400, { "Content-Type" => "plain/text" }, ["Auth Failure"]] }
     end
     setup_environment_middleware
+  end
+
+  class ServerProxy
+    def start
+      require_relative "./boot"
+    end
   end
 end

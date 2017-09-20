@@ -1,7 +1,7 @@
 require "web/views/home_view"
-require "kingfisher/controller"
+require "web/controllers/application_controller"
 
-class HomeController < Kingfisher::Controller
+class HomeController < ApplicationController
   def show
     view HomeView
   end

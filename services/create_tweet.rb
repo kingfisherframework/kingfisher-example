@@ -1,13 +1,14 @@
 require "models/user"
+require "models/tweet"
 
-class SignUp
+class CreateTweet
   def initialize(repo, params)
     @repo = repo
     @params = params
   end
 
   def run
-    repo.create(User, params)
+    repo.create(Tweet, params)
   end
 
   private

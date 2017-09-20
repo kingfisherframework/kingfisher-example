@@ -1,10 +1,10 @@
-require "kingfisher/controller"
+require "web/controllers/application_controller"
 require "services/sign_out"
 require "services/sign_in"
 require "services/authentication"
 require "web/views/sign_in_view"
 
-class SessionsController < Kingfisher::Controller
+class SessionsController < ApplicationController
   def new
     view SignInView
   end

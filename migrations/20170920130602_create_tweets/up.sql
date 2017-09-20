@@ -1,0 +1,6 @@
+CREATE TABLE "tweet" (
+  id BIGSERIAL PRIMARY KEY,
+  user_id BIGSERIAL NOT NULL REFERENCES "user" (id),
+  body VARCHAR(144) NOT NULL
+);
+

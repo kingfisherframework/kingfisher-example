@@ -1,0 +1,5 @@
+CREATE TABLE "user" (
+  id BIGSERIAL PRIMARY KEY,
+  email VARCHAR NOT NULL,
+  password_digest VARCHAR NOT NULL
+)

@@ -1,11 +1,8 @@
 #!/usr/bin/env ruby
-require "pry"
+ENV["BUNDLE_GEMFILE"] ||= File.expand_path("../../Gemfile", __FILE__)
+require "bundler/setup" if File.exist?(ENV["BUNDLE_GEMFILE"])
 require_relative "../config/#{ENV.fetch("KINGFISHER_ENV", "development")}"
-
-aliases = { "s" => "server" }
-command = ARGV.shift
-command = aliases.fetch(command) { command }
-config = Config.new
+require "kingfisher/cli"
 
 class StdoutReporter
   def report(message)
@@ -13,21 +10,7 @@ class StdoutReporter
   end
 end
 
-case command
-when "server" then require_relative "../config/boot"
-when "createdb"
-  check = config.backend.ensure_exists
-  puts check.result
-when "dropdb"
-  check = config.backend.drop
-  puts check.result
-when "migrate"
-  require "kingfisher/migrator"
-  Kingfisher::Migrator.new(config).run(reporter: StdoutReporter.new)
-when "generate"
-  require "kingfisher/generators"
-  args = ARGV
-  Kingfisher::Generators::INTERNAL[args[0]].new(args[1..-1]).run
-else
-  raise "Unsupported command: #{command}, available commands: #{aliases.keys.join(", ")}"
-end
+config = Config.new
+reporter = StdoutReporter.new
+cli = Kingfisher::Cli.new(ARGV, config: config, reporter: reporter)
+cli.run
