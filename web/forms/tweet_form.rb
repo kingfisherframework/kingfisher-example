@@ -16,6 +16,6 @@ class TweetForm < ApplicationForm
   attr_reader :request
 
   def current_user
-    @_current_user ||= User.new(request.env["warden"].user)
+    @_current_user ||= request.env["warden"].user
   end
 end

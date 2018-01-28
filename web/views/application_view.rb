@@ -7,7 +7,7 @@ class ApplicationView < Kingfisher::View
   end
 
   def current_user
-    User.new(request.env["warden"].user)
+    request.env["warden"].user
   end
 
   def signed_in?

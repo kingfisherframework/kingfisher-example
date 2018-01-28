@@ -11,6 +11,7 @@ class Router < Kingfisher::Router
 
     get "/sign_up", UsersController, :new
     post "/sign_up", UsersController, :create
+    get "/users/:id", UsersController, :show
 
     post "/tweet", TweetsController, :create
 

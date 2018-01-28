@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "kingfisher"
+gem "kingfisher", path: "/Users/halogenandtoast/Code/ruby/kingfisher"
 gem "sequel"
 gem "puma"
 gem "rack"
@@ -13,4 +13,3 @@ gem "rspec"
 gem "capybara"
 gem "dotenv"
 gem "pg"
-gem "kingfisher"
