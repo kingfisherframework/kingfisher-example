@@ -1,4 +1,7 @@
 require "rack"
+require "pry"
+
+require "dotenv/load"
 
 module Twitter
   class Application
