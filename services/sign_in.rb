@@ -1,7 +1,7 @@
 class SignIn
-  def initialize(warden, user)
+  def initialize(user, request)
     @user = user
-    @warden = warden
+    @warden = request.env["warden"]
   end
 
   def run

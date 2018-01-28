@@ -28,10 +28,6 @@ class UsersController < ApplicationController
   end
 
   def sign_in(user)
-    SignIn.new(warden, user).run
-  end
-
-  def warden
-    request.env["warden"]
+    SignIn.new(user, request).run
   end
 end

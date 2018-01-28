@@ -5,7 +5,8 @@ class Config < ApplicationConfig
     middlewares.use Kingfisher::Middlewares::FileLogger, file: "log/development.log"
   end
 
-  def database_url
-    "postgres://localhost/kingfisher_development"
+  def dependencies
+    require "web/dependencies"
+    DependencyPayload.new
   end
 end

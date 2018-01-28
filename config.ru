@@ -7,7 +7,6 @@ $LOAD_PATH.unshift(".")
 require "pry"
 require "dotenv/load"
 
-
 require "web/router"
 require "kingfisher/app"
 require "config/#{ENV.fetch("KINGFISHER_ENV", "development")}"

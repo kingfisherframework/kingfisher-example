@@ -2,8 +2,12 @@ require "kingfisher/view"
 require "kingfisher/csrf"
 
 class ApplicationView < Kingfisher::View
+  def layout
+    "application"
+  end
+
   def repo
-    request.env["repo"]
+    request.env["dependencies"].service(:repo)
   end
 
   def current_user

@@ -13,10 +13,11 @@ class BCryptPasswordStrategy < ::Warden::Strategies::Base
   private
 
   def user
-    env["repo"].find_by(User, id: params["id"])
+    repo = env["dependencies"].service(:repo)
+    repo.find_by(User, id: params["id"])
   end
 end
 
 Warden::Strategies.add(:password_strategy, BCryptPasswordStrategy)
 Warden::Manager.serialize_into_session { |user| user[:id] }
-Warden::Manager.serialize_from_session { |id| env["repo"].find(User, id) }
+Warden::Manager.serialize_from_session { |id| env["dependencies"].service(:repo).find(User, id) }
